@@ -1,14 +1,16 @@
-import type { FC } from 'react'
+import Link from 'next/link'
 import React from 'react'
 
-import type { IMainProps } from '@/app/components'
-import Main from '@/app/components'
-
-const App: FC<IMainProps> = ({
+const App = ({
   params,
 }: any) => {
   return (
-    <Main params={params} />
+    <div>
+      <p>静态页面</p>
+      <p>
+        <Link href="/chat">chat</Link>
+      </p>
+    </div>
   )
 }
 
