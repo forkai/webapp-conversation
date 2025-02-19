@@ -7,6 +7,9 @@ import railway from '@/public/image/railway.png'
 import money from '@/public/image/money.png'
 import customer from '@/public/image/customer.png'
 import logistics from '@/public/image/logistics.png'
+import userPng from '@/public/image/user.png'
+import newdialogue from '@/public/image/newdialogue.png'
+import historicalDialogue from '@/public/image/historicalDialogue.png'
 
 type CardProps = {
   title: string
@@ -25,6 +28,36 @@ const Card: React.FC<CardProps> = ({ title, desc, icon, type }) => {
       </div>
       <div className='desc'>{desc}</div>
     </Link>
+  )
+}
+
+const SideBar: React.FC = () => {
+  return (
+    <div className='w-40 fixed left-0 p-8 bg-white/40 h-full flex flex-col items-center justify-between'>
+      <div className='flex flex-col items-center justify-center'>
+        <Image src={Icon} alt='icon' />
+        <div className='text-xl text-center'>物流行业大模型</div>
+      </div>
+
+      <div className='flex flex-1 flex-col justify-start p-20'>
+        <Link href={{ pathname: '/chat' }}
+          className='flex flex-col items-center justify-center cursor-pointer'>
+          <Image src={newdialogue} alt='icon' />
+          <div>新对话</div>
+        </Link>
+
+        <div className='h-[1px] bg-[#D6E2FD] w-20 my-16'></div>
+
+        <div className='flex flex-col items-center justify-center cursor-pointer'>
+          <Image src={historicalDialogue} alt='icon' />
+          <div>历史对话</div>
+        </div>
+      </div>
+
+      <div className='cursor-pointer'>
+        <Image src={userPng} alt='icon' />
+      </div>
+    </div>
   )
 }
 
@@ -57,6 +90,7 @@ const App = () => {
   ]
   return (
     <div className="h-full container mx-auto max-w-4xl flex flex-col justify-between">
+      <SideBar className='fixed left-0' />
       <div className='flex-1 flex flex-col items-center justify-center'>
         <p className='flex items-center text-2xl font-bold mb-10 gap-4'>
           <Image src={Icon} alt='icon' />
