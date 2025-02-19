@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './app/**/*.{js,ts,jsx,tsx}',
+    './app/**/*.{js,ts,jsx,tsx}', // 根据你的项目结构调整路径
     './components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
@@ -57,10 +57,12 @@ module.exports = {
         pc: '769px',
         // => @media (min-width: 769px) { ... }
       },
+      backgroundImage: {
+        'main-background': 'url(\'/image/mainBackground.png\')',
+      },
     },
   },
   plugins: [
     require('@tailwindcss/typography'),
-    require('@tailwindcss/line-clamp'),
   ],
 }
