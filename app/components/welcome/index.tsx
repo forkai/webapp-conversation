@@ -82,7 +82,7 @@ const Welcome: FC<IWelcomeProps> = ({
 
   const renderHeader = () => {
     return (
-      <div className='absolute top-0 left-0 right-0 flex items-center justify-between border-b border-gray-100 mobile:h-12 tablet:h-16 px-8 bg-white'>
+      <div className='absolute top-0 left-0 right-0 flex items-center justify-between border-b border-gray-100 mobile:h-12 tablet:h-16 px-8' style={{ background: '##f6faff' }}>
         <div className='text-gray-900'>{conversationName}</div>
       </div>
     )
@@ -305,7 +305,7 @@ const Welcome: FC<IWelcomeProps> = ({
   }
 
   return (
-    <div className='relative mobile:min-h-[48px] tablet:min-h-[64px]'>
+    <div className='relative mobile:min-h-[48px] tablet:min-h-[64px]' style={{ background: '##f6faff' }}>
       {hasSetInputs && renderHeader()}
       <div className='mx-auto pc:w-[794px] max-w-full mobile:w-full px-3.5'>
         {/*  Has't set inputs  */}

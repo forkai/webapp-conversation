@@ -22,6 +22,7 @@ import AppUnavailable from '@/app/components/app-unavailable'
 import { API_KEY, APP_ID, APP_INFO, isShowPrompt, promptTemplate } from '@/config'
 import type { Annotation as AnnotationType } from '@/types/log'
 import { addFileInfos, sortAgentSorts } from '@/utils/tools'
+import dialogueBackground from '../../public/image/dialogueBackground.png'
 
 export type IMainProps = {
   params: any
@@ -640,7 +641,7 @@ const Main: FC<IMainProps> = () => {
           </div>
         )}
         {/* main */}
-        <div className='flex-grow flex flex-col h-[calc(100vh_-_3rem)] overflow-y-auto'>
+        <div className='flex-grow flex flex-col h-[calc(100vh)] overflow-y-auto' style={{ backgroundColor: '#f6faff' }}>
           <ConfigSence
             conversationName={conversationName}
             hasSetInputs={hasSetInputs}

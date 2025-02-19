@@ -15,6 +15,8 @@ import Toast from '@/app/components/base/toast'
 import ChatImageUploader from '@/app/components/base/image-uploader/chat-image-uploader'
 import ImageList from '@/app/components/base/image-uploader/image-list'
 import { useImageFiles } from '@/app/components/base/image-uploader/hooks'
+import Image from 'next/image';
+import sendingmessages from '../../../public/image/sendingmessages.png';
 
 export type IChatProps = {
   chatList: ChatItem[]
@@ -146,7 +148,7 @@ const Chat: FC<IChatProps> = ({
       {
         !isHideSendInput && (
           <div className={cn(!feedbackDisabled && '!left-3.5 !right-3.5', 'absolute z-10 bottom-0 left-0 right-0')}>
-            <div className='p-[5.5px] max-h-[150px] bg-white border-[1.5px] border-gray-200 rounded-xl overflow-y-auto'>
+            <div className='p-[5.5px] max-h-[150px]  bg-white border-[1.5px] border-gray-200 rounded-xl overflow-y-auto'>
               {
                 visionConfig?.enabled && (
                   <>
@@ -180,10 +182,11 @@ const Chat: FC<IChatProps> = ({
                 onKeyUp={handleKeyUp}
                 onKeyDown={handleKeyDown}
                 autoSize
+                placeholder='发送消息'
               />
               <div className="absolute bottom-2 right-2 flex items-center h-8">
-                <div className={`${s.count} mr-4 h-5 leading-5 text-sm bg-gray-50 text-gray-500`}>{query.trim().length}</div>
-                <Tooltip
+                {/* <div className={`${s.count} mr-4 h-5 leading-5 text-sm bg-gray-50 text-gray-500`}>{query.trim().length}</div> */}
+                {/* <Tooltip
                   selector='send-tip'
                   htmlContent={
                     <div>
@@ -193,7 +196,8 @@ const Chat: FC<IChatProps> = ({
                   }
                 >
                   <div className={`${s.sendBtn} w-8 h-8 cursor-pointer rounded-md`} onClick={handleSend}></div>
-                </Tooltip>
+                </Tooltip> */}
+                <Image src={ sendingmessages } alt="User avatar" width={36} height={36} style={{ cursor: 'pointer' }} onClick={ handleSend } />
               </div>
             </div>
           </div>
