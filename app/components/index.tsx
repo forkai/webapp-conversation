@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import produce, { setAutoFreeze } from 'immer'
 import { useBoolean, useGetState } from 'ahooks'
+import { useAtom } from 'jotai'
 import useConversation from '@/hooks/use-conversation'
 import Toast from '@/app/components/base/toast'
 import Sidebar from '@/app/components/sidebar'
@@ -22,13 +23,15 @@ import AppUnavailable from '@/app/components/app-unavailable'
 import { API_KEY, APP_ID, APP_INFO, isShowPrompt, promptTemplate } from '@/config'
 import type { Annotation as AnnotationType } from '@/types/log'
 import { addFileInfos, sortAgentSorts } from '@/utils/tools'
-import dialogueBackground from '../../public/image/dialogueBackground.png'
-
+import { conversationTypeAtom } from '@/store/atoms'
 export type IMainProps = {
   params: any
 }
 
-const Main: FC<IMainProps> = () => {
+const Main: FC<IMainProps & { type: string }> = ({ type }) => {
+  const [, setType] = useAtom(conversationTypeAtom)
+  setType(type)
+  console.log('type', type)
   const { t } = useTranslation()
   const media = useBreakpoints()
   const isMobile = media === MediaType.mobile

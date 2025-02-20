@@ -90,7 +90,7 @@ const App = () => {
   ]
   return (
     <div className="container flex flex-col justify-between h-full max-w-4xl mx-auto">
-      <SideBar className='fixed left-0' />
+      <SideBar />
       <div className='flex flex-col items-center justify-center flex-1'>
         <p className='flex items-center gap-4 mb-10 text-2xl font-bold'>
           <Image src={Icon} alt='icon' />
