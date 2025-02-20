@@ -29,7 +29,7 @@ export type IMainProps = {
 }
 
 const Main: FC<IMainProps & { type: string }> = ({ type }) => {
-  const [, setType] = useAtom(conversationTypeAtom)
+  const [cType, setType] = useAtom(conversationTypeAtom)
   setType(type)
   console.log('type', type)
   const { t } = useTranslation()
@@ -130,7 +130,7 @@ const Main: FC<IMainProps & { type: string }> = ({ type }) => {
 
     // update chat list of current conversation
     if (!isNewConversation && !conversationIdChangeBecauseOfNew && !isResponding) {
-      fetchChatList(currConversationId).then((res: any) => {
+      fetchChatList(currConversationId, cType).then((res: any) => {
         const { data } = res
         const newChatList: ChatItem[] = generateNewChatListWithOpenStatement(notSyncToStateIntroduction, notSyncToStateInputs)
 
@@ -228,7 +228,7 @@ const Main: FC<IMainProps & { type: string }> = ({ type }) => {
     }
     (async () => {
       try {
-        const [conversationData, appParams] = await Promise.all([fetchConversations(), fetchAppParams()])
+        const [conversationData, appParams] = await Promise.all([fetchConversations(cType), fetchAppParams(cType)])
 
         // handle current conversation id
         const { data: conversations, error } = conversationData as { data: ConversationItem[]; error: string }
@@ -388,7 +388,7 @@ const Main: FC<IMainProps & { type: string }> = ({ type }) => {
     let tempNewConversationId = ''
 
     setRespondingTrue()
-    sendChatMessage(data, {
+    sendChatMessage({ ...data, type: cType }, {
       getAbortController: (abortController) => {
         setAbortController(abortController)
       },
@@ -427,8 +427,8 @@ const Main: FC<IMainProps & { type: string }> = ({ type }) => {
           return
 
         if (getConversationIdChangeBecauseOfNew()) {
-          const { data: allConversations }: any = await fetchConversations()
-          const newItem: any = await generationConversationName(allConversations[0].id)
+          const { data: allConversations }: any = await fetchConversations(cType)
+          const newItem: any = await generationConversationName(allConversations[0].id, cType)
 
           const newAllConversations = produce(allConversations, (draft: any) => {
             draft[0].name = newItem.name
@@ -589,7 +589,7 @@ const Main: FC<IMainProps & { type: string }> = ({ type }) => {
   }
 
   const handleFeedback = async (messageId: string, feedback: Feedbacktype) => {
-    await updateFeedback({ url: `/messages/${messageId}/feedbacks`, body: { rating: feedback.rating } })
+    await updateFeedback({ url: `/messages/${messageId}/feedbacks`, body: { rating: feedback.rating, type: cType } })
     const newChatList = chatList.map((item) => {
       if (item.id === messageId) {
         return {
