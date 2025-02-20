@@ -100,7 +100,7 @@ const mapping: Record<MappingType, { userPrefix: string; getInfo: (request: Next
   },
 }
 
-export const getGetInfoFn = (type: MappingType) => mapping[type].getInfo
-export const getSetSessionFn = (type: MappingType) => mapping[type].setSession
-export const getUserPrefixFn = (type: MappingType) => mapping[type].userPrefix
-export const getClientFn = (type: MappingType) => mapping[type].client
+export const getGetInfoFn = (type: MappingType = 'booking') => mapping[type].getInfo
+export const getSetSessionFn = (type: MappingType = 'booking') => mapping[type].setSession
+export const getUserPrefixFn = (type: MappingType = 'booking') => mapping[type].userPrefix
+export const getClientFn = (type: MappingType = 'booking') => mapping[type].client

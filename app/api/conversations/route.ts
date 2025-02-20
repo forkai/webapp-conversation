@@ -1,13 +1,13 @@
 import { type NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
-import { client, getInfo, setSession } from '@/app/api/utils/common'
+import { getClientFn, getGetInfoFn, getSetSessionFn } from '@/app/api/utils/common'
 
 export async function GET(request: NextRequest) {
-  const { sessionId, user } = getInfo(request)
+  const { sessionId, user } = getGetInfoFn()(request)
   try {
-    const { data }: any = await client.getConversations(user)
+    const { data }: any = await getClientFn().getConversations(user)
     return NextResponse.json(data, {
-      headers: setSession(sessionId),
+      headers: getSetSessionFn()(sessionId),
     })
   }
   catch (error: any) {
