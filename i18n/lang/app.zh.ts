@@ -26,6 +26,8 @@ const translation = {
   variableTable: {
     optional: '可选',
   },
+  thinking: '深度思考中...',
+  thought: '已深度思考',
 }
 
 export default translation

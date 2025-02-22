@@ -31,6 +31,8 @@ const translation = {
   variableTable: {
     optional: 'Optional',
   },
+  thinking: 'Thinking...',
+  thought: 'Thought',
 }
 
 export default translation
