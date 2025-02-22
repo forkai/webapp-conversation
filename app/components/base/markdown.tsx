@@ -31,14 +31,10 @@ const preprocessLaTeX = (content: string) => {
 }
 
 export function Markdown(props: { content: string }) {
-  console.log('props.content', props.content)
   const latexContent = flow([
     preprocessThinkTag,
     preprocessLaTeX,
   ])(props.content)
-
-  console.log('latexContent', latexContent)
-
   return (
     <div className="markdown-body">
       <ReactMarkdown

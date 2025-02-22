@@ -232,7 +232,6 @@ const Main: FC<IMainProps & { type: string }> = ({ type }) => {
   // init
   useEffect(() => {
     if (!hasSetAppConfig) {
-      console.log(111)
       setAppUnavailable(true)
       return
     }
@@ -274,7 +273,6 @@ const Main: FC<IMainProps & { type: string }> = ({ type }) => {
         setInited(true)
       }
       catch (e: any) {
-        console.log('error', e)
         if (e.status === 404) {
           setAppUnavailable(true)
         }

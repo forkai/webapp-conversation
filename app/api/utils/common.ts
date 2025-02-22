@@ -32,7 +32,6 @@ export const getInfo2 = (request: NextRequest) => {
 }
 
 export const setSession2 = (sessionId: string) => {
-  console.log('sessionId', sessionId)
   return { 'Set-Cookie': `session_id2=${sessionId}` }
 }
 
