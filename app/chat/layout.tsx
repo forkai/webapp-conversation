@@ -1,6 +1,5 @@
 import { getLocaleOnServer } from '@/i18n/server'
 
-import '../styles/globals.css'
 import '../styles/markdown.scss'
 
 const LocaleLayout = ({
