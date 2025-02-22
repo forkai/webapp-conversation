@@ -32,6 +32,7 @@ export const getInfo2 = (request: NextRequest) => {
 }
 
 export const setSession2 = (sessionId: string) => {
+  console.log('sessionId', sessionId)
   return { 'Set-Cookie': `session_id2=${sessionId}` }
 }
 
@@ -100,7 +101,7 @@ const mapping: Record<MappingType, { userPrefix: string; getInfo: (request: Next
   },
 }
 
-export const getGetInfoFn = (type: MappingType = 'booking') => mapping[type].getInfo
-export const getSetSessionFn = (type: MappingType = 'booking') => mapping[type].setSession
-export const getUserPrefixFn = (type: MappingType = 'booking') => mapping[type].userPrefix
-export const getClientFn = (type: MappingType = 'booking') => mapping[type].client
+export const getGetInfoFn = (type: any) => mapping[type as MappingType || 'booking'].getInfo
+export const getSetSessionFn = (type: any) => mapping[type as MappingType || 'booking'].setSession
+export const getUserPrefixFn = (type: any) => mapping[type as MappingType || 'booking'].userPrefix
+export const getClientFn = (type: any) => mapping[type as MappingType || 'booking'].client

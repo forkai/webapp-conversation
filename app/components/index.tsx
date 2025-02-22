@@ -28,10 +28,19 @@ export type IMainProps = {
   params: any
 }
 
-const Main: FC<IMainProps & { type: string }> = ({ type }) => {
+const Wrapper: FC<IMainProps & { type: string }> = ({ params, type }) => {
   const [cType, setType] = useAtom(conversationTypeAtom)
-  setType(type)
-  console.log('type', type)
+
+  useEffect(() => {
+    setType(type)
+  }, [type])
+
+  if (!cType)
+    return <Loading type='app' />
+  return <Main params={params} type={cType} />
+}
+
+const Main: FC<IMainProps & { type: string }> = ({ type }) => {
   const { t } = useTranslation()
   const media = useBreakpoints()
   const isMobile = media === MediaType.mobile
@@ -130,7 +139,7 @@ const Main: FC<IMainProps & { type: string }> = ({ type }) => {
 
     // update chat list of current conversation
     if (!isNewConversation && !conversationIdChangeBecauseOfNew && !isResponding) {
-      fetchChatList(currConversationId, cType).then((res: any) => {
+      fetchChatList(currConversationId, type).then((res: any) => {
         const { data } = res
         const newChatList: ChatItem[] = generateNewChatListWithOpenStatement(notSyncToStateIntroduction, notSyncToStateInputs)
 
@@ -223,12 +232,13 @@ const Main: FC<IMainProps & { type: string }> = ({ type }) => {
   // init
   useEffect(() => {
     if (!hasSetAppConfig) {
+      console.log(111)
       setAppUnavailable(true)
       return
     }
     (async () => {
       try {
-        const [conversationData, appParams] = await Promise.all([fetchConversations(cType), fetchAppParams(cType)])
+        const [conversationData, appParams] = await Promise.all([fetchConversations(type), fetchAppParams(type)])
 
         // handle current conversation id
         const { data: conversations, error } = conversationData as { data: ConversationItem[]; error: string }
@@ -264,6 +274,7 @@ const Main: FC<IMainProps & { type: string }> = ({ type }) => {
         setInited(true)
       }
       catch (e: any) {
+        console.log('error', e)
         if (e.status === 404) {
           setAppUnavailable(true)
         }
@@ -388,7 +399,7 @@ const Main: FC<IMainProps & { type: string }> = ({ type }) => {
     let tempNewConversationId = ''
 
     setRespondingTrue()
-    sendChatMessage({ ...data, type: cType }, {
+    sendChatMessage({ ...data, type }, {
       getAbortController: (abortController) => {
         setAbortController(abortController)
       },
@@ -427,8 +438,8 @@ const Main: FC<IMainProps & { type: string }> = ({ type }) => {
           return
 
         if (getConversationIdChangeBecauseOfNew()) {
-          const { data: allConversations }: any = await fetchConversations(cType)
-          const newItem: any = await generationConversationName(allConversations[0].id, cType)
+          const { data: allConversations }: any = await fetchConversations(type)
+          const newItem: any = await generationConversationName(allConversations[0].id, type)
 
           const newAllConversations = produce(allConversations, (draft: any) => {
             draft[0].name = newItem.name
@@ -589,7 +600,7 @@ const Main: FC<IMainProps & { type: string }> = ({ type }) => {
   }
 
   const handleFeedback = async (messageId: string, feedback: Feedbacktype) => {
-    await updateFeedback({ url: `/messages/${messageId}/feedbacks`, body: { rating: feedback.rating, type: cType } })
+    await updateFeedback({ url: `/messages/${messageId}/feedbacks`, body: { rating: feedback.rating, type } })
     const newChatList = chatList.map((item) => {
       if (item.id === messageId) {
         return {
@@ -678,4 +689,4 @@ const Main: FC<IMainProps & { type: string }> = ({ type }) => {
   )
 }
 
-export default React.memo(Main)
+export default React.memo(Wrapper)

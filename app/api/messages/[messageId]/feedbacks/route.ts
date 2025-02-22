@@ -10,7 +10,7 @@ export async function POST(request: NextRequest, { params }: {
     rating,
   } = body
   const { messageId } = params
-  const { user } = getGetInfoFn()(request)
-  const { data } = await getClientFn().messageFeedback(messageId, rating, user)
+  const { user } = getGetInfoFn(body.type)(request)
+  const { data } = await getClientFn(body.type).messageFeedback(messageId, rating, user)
   return NextResponse.json(data)
 }
