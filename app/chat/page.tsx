@@ -9,7 +9,11 @@ const App: FC<IMainProps> = ({
   searchParams,
 }: any) => {
   return (
-    <Main params={params} type={searchParams.type} />
+    <div className="overflow-x-auto">
+      <div className="w-screen h-screen min-w-[300px]">
+        <Main params={params} type={searchParams.type} />
+      </div>
+    </div>
   )
 }
 
